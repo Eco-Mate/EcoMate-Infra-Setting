@@ -9,6 +9,7 @@ resource "aws_db_instance" "ecomateDB" {
   identifier = "ecomate"
   username = "admin"
   password = var.db_password
+  publicly_accessible = true
   port = "3306"
   tags = {
     Name = "ecomate"
@@ -17,4 +18,6 @@ resource "aws_db_instance" "ecomateDB" {
 
 provider "aws" {
   region = "ap-northeast-2"
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
 }
