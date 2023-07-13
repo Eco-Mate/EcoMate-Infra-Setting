@@ -58,3 +58,13 @@ resource "aws_security_group_rule" "ecomate_sg_rule_jenkins" {
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ecomate_sg.id
 }
+
+# spring-boot 연결 포트 허용
+resource "aws_security_group_rule" "ecomate_sg_rule_springboot" {
+  type = "ingress"
+  from_port = 8081
+  to_port = 8081
+  protocol = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ecomate_sg.id
+}
