@@ -8,6 +8,7 @@ resource "aws_instance" "ecomate_instance" {
 }
 
 resource "aws_security_group" "ecomate_sg" {
+  # http 연결 허용
   ingress {
     from_port = 80
     to_port = 80
@@ -43,6 +44,16 @@ resource "aws_security_group_rule" "ecomate_sg_rule_https" {
   type = "ingress"
   from_port = 443
   to_port = 443
+  protocol = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ecomate_sg.id
+}
+
+# jenkins 연결 포트 허용
+resource "aws_security_group_rule" "ecomate_sg_rule_jenkins" {
+  type = "ingress"
+  from_port = 9090
+  to_port = 9090
   protocol = "tcp"
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ecomate_sg.id
